@@ -1,0 +1,15 @@
+# Credenciais
+.env
+
+# AI Config
+.claude
+
+# Node
+node_modules/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db

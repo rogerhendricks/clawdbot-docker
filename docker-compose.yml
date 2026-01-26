@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  clawdbot-gateway:
+    build: .
+    container_name: clawdbot
+    restart: unless-stopped
+    ports:
+      - "18789:18789"
+    volumes:
+      - clawdbot-config:/home/clawdbot/.clawdbot
+      - clawdbot-workspace:/home/clawdbot/workspace
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      - CLAWDBOT_GATEWAY_BIND=0.0.0.0
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  clawdbot-cli:
+    build: .
+    profiles: ["cli"]
+    stdin_open: true
+    tty: true
+    volumes:
+      - clawdbot-config:/home/clawdbot/.clawdbot
+      - clawdbot-workspace:/home/clawdbot/workspace
+    env_file:
+      - .env
+    entrypoint: ["clawdbot"]
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  clawdbot-config:
+  clawdbot-workspace:
