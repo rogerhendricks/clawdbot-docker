@@ -1,15 +1,13 @@
-version: '3.8'
-
 services:
   clawdbot-gateway:
     build: .
-    container_name: clawdbot
+    container_name: openclaw
     restart: unless-stopped
     ports:
       - "18789:18789"
     volumes:
-      - clawdbot-config:/home/clawdbot/.clawdbot
-      - clawdbot-workspace:/home/clawdbot/workspace
+      - openclaw-config:/home/openclaw/.openclaw
+      - clawdbot-workspace:/home/openclaw/workspace
     env_file:
       - .env
     environment:
@@ -24,14 +22,14 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - clawdbot-config:/home/clawdbot/.clawdbot
-      - clawdbot-workspace:/home/clawdbot/workspace
+      - openclaw-config:/home/openclaw/.openclaw
+      - clawdbot-workspace:/home/openclaw/workspace
     env_file:
       - .env
-    entrypoint: ["clawdbot"]
+    entrypoint: ["openclaw"]
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
 volumes:
-  clawdbot-config:
-  clawdbot-workspace:
+  openclaw-config:
+  openclaw-workspace:
